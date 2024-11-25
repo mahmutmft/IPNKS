@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Cards</title>
+    <style>
+      .divClass {
+        margin-bottom: 10px;
+      }
+      .divClass label,
+      .selectColor label {
+        display: inline-block;
+        width: 100px;
+      }
+      .divClass label,
+      .selectColor label {
+        margin-right: 20px;
+      }
+      h1 {
+        text-align: center;
+      }
+      #buttonCreate {
+        margin-left: 100px;
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>User Cards</h1>
+    <div class="divClass">
+      <label for="username">Username:</label>
+      <input type="text" id="username" value="" />
+    </div>
+    <div class="divClass">
+      <label for="username">Width:</label>
+      <input type="number" id="width" value="" />
+      px
+    </div>
+    <div class="divClass">
+      <label for="username">Height:</label>
+      <input type="number" id="height" value="" />
+      px
+    </div>
+    <div class="divClass">
+      <label for="username">Card ID:</label>
+      <input type="text" id="cardId" value="" />
+    </div>
+    <div>
+      <div class="selectColor">
+        <label for="color">Color:</label>
+        <select name="color" id="color">
+          <option value="red">Red</option>
+          <option value="green">Green</option>
+          <option value="yellow">Yellow</option>
+          <option value="blue">Blue</option>
+        </select>
+      </div>
+    </div>
+    <button id="buttonCreate" onclick="createCards()">Create</button>
+    <p>
+      Total value of sold cards:
+      <span id="soldId" style="font-weight: bold">0</span>
+    </p>
+    <div id="createCards"></div>
+
+    <script>
+      let totallSold = 0;
+      function createCards() {
+        let value = 0;
+        let username = document.getElementById("username");
+        username = username.value;
+
+        let width = document.getElementById("width");
+        width = width.value;
+        parseInt(width);
+
+        let height = document.getElementById("height");
+        height = height.value;
+        parseInt(height);
+        let cardId = document.getElementById("cardId");
+        cardId = cardId.value;
+
+        let color = document.getElementById("color");
+        color = color.value;
+
+        if (!username || !cardId || !color || !height || !width) {
+          alert("Please fill out the form");
+          return;
+        }
+        if (width > 350 || height > 350 || height < 0 || width < 0) {
+          alert("Width and height must be between 0 and 350.");
+          return;
+        }
+        //TODO: ОЗНАКАТА НА КАРТИЧКАТА ТРЕБА ДА ПРОВЕРИ ДАЛИ Е СОСТАВЕНА САМО ОД МАЛИ БУКВИ И ПРИТОА НЕ СМЕЕ ДА СОДРЖИ БРОЕВИ
+        let check = document.getElementById(username);
+        if (check != null) {
+          check.style.backgroundColor = color;
+          check.style.width = width + "px";
+          check.style.height = height + "px";
+
+          check.children[1].textContent = "Width: " + width + "px";
+          check.children[2].textContent = "Height: " + height + "px";
+
+          return;
+        }
+        value = width * height * 0.5;
+        if (color === "green") {
+          value += 1000;
+        }
+        let createCard = document.getElementById("createCards");
+        let card =
+          "<div id='" +
+          username +
+          "' style='background-color: " +
+          color +
+          " ; display: inline-block; width: " +
+          width +
+          "px; height: " +
+          height +
+          "px; text-align: center; margin: 10px 20px;'>" +
+          "<p>ID: " +
+          cardId +
+          "</p>" +
+          "<p>Width: " +
+          width +
+          "</p>" +
+          "<p>Height: " +
+          height +
+          "</p>" +
+          "<p>Value: " +
+          value +
+          "</p>" +
+          "<button onclick='cardSell(\"" +
+          username +
+          '",' +
+          value +
+          ")'>Sell Button</button>" +
+          "</div>";
+        createCard.innerHTML += card;
+      }
+      function cardSell(cardId, value) {
+        totallSold += value;
+        let sold = document.getElementById("soldId");
+        sold.innerHTML = totallSold;
+
+        let card = document.getElementById(cardId);
+        card.remove();
+      }
+    </script>
+  </body>
+</html>
