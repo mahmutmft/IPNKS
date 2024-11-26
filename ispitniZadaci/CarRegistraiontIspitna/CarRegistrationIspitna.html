@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Car registration</title>
+    <script>
+
+
+        let number = 0;
+
+        function update()
+        {
+            let field = document.getElementById("count")
+            console.log(field);
+            field.innerText = number.toString();
+        }
+
+        function plati(ova)
+        {
+            ova.parentElement.remove();
+        }
+
+        function izbrishi(ova)
+        {
+            ova.parentElement.parentElement.remove();
+            number--;
+            update();
+        }
+        function isAlpha(c) {
+            return c >= 'A' && c <= 'Z';
+        }
+
+        function isNumber(c) {
+            return c >= '0' && c <= '9';
+        }
+
+        function isValid(tablica) {
+            if (isAlpha(tablica.charAt(0)) &&
+                isAlpha(tablica.charAt(1)) &&
+                tablica.charAt(2) === '-' &&
+                isNumber(tablica.charAt(3)) &&
+                isNumber(tablica.charAt(4)) &&
+                isNumber(tablica.charAt(5)) &&
+                isNumber(tablica.charAt(6)) &&
+                tablica.charAt(7) === '-' &&
+                isAlpha(tablica.charAt(8)) &&
+                isAlpha(tablica.charAt(9))) {
+                return true;
+            }
+            return false;
+        }
+// AD-1264-AD
+        function generateBill() {
+            let names = document.getElementById("names").value;
+            let tablica = document.getElementById("tabla").value;
+            let age = document.getElementById("age").value;
+            let isUdarana = document.getElementById("udar");
+            let tabela = document.getElementById("tabelka");
+            isUdarana = isUdarana.options[isUdarana.selectedIndex].text;
+
+            if (names && tablica && !(isNaN(parseInt(age))) && isUdarana) {
+                if (isValid(tablica)) {
+                    let cena = 3000;
+                    cifri = tablica.slice(3, 8);
+                    cifri = parseInt(cifri);
+                    let color = 'green'
+                    if (cifri % 1111 === 0)
+                    {
+                        cena +=1000;
+                    }
+                    if (isUdarana === "Da")
+                    {
+                        cena+=500;
+                    }
+                    if (age>30)
+                    {
+                        color = 'red'
+                    }
+                    number++;
+                    update();
+                    tabela.innerHTML += "<tr style='background:" + color + "'><td>" + names + "</td><td>" + tablica + "</td><td>" + age + "</td><td>" + isUdarana + "</td><td>" + cena + "</td><td><button onclick='plati(this)'>Plati</button><button onclick='izbrishi(this)'>Izbrishi</button></td></tr>"
+                    document.getElementById("names").value = "";
+                    document.getElementById("tabla").value = "";
+                    document.getElementById("age").value = "";
+                    document.getElementById("udar").selectedIndex=0;
+                } else
+                {
+                    alert("Tablicata ne e validna")
+                }
+
+            } else {
+                alert("Ne se popolneti site polinja.")
+            }
+        }
+    </script>
+</head>
+<body>
+<div>
+    <div>
+        Ime i prezime<input type="text" id="names">
+    </div>
+
+    <div>
+        Tablica<input type="text" id="tabla">
+    </div>
+
+    <div>
+        Godini<input type="text" id="age">
+    </div>
+
+    <div>
+        Prehodni nesrekji
+        <select id="udar">
+            <option>Da</option>
+            <option>Ne</option>
+        </select>
+    </div>
+    <table id="tabelka">
+        <tr>
+            <th>Sofior</th>
+            <th>Tablica</th>
+            <th>Godini</th>
+            <th>Udar</th>
+            <th>Cena</th>
+            <th>Kopchinja</th>
+        </tr>
+    </table>
+    <div>
+        <button id="btn" onclick="generateBill();">Generiraj Smetka</button>
+    </div>
+    Broj na smetki:<div id="count">0</div>
+</div>
+</body>
+</html>
