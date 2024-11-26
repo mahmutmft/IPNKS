@@ -153,16 +153,20 @@
           itemCode +
           "\")'>Sell</button></td></tr>";
         createCard.innerHTML += createRow;
+        counter++;
+        let counterChange = document.getElementById("changeCounter");
+        console.log(counter);
+        counterChange.innerHTML = counter;
       }
 
       function sellRow(buttonRemove, idCode) {
-        counter++;
+        counter--;
         let idcodeColor = document.getElementById(idCode);
         buttonRemove.remove();
         idcodeColor.style.backgroundColor = "green";
         let counterChange = document.getElementById("changeCounter");
         console.log(counter);
-        counterChange.innerHTML += counter;
+        counterChange.innerHTML = counter;
       }
     </script>
   </body>
