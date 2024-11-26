@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Shop Ispitna</title>
+    <style>
+      h1 {
+        text-align: center;
+      }
+      .divCss label,
+      .divSelect label {
+        display: inline-block;
+        width: 200px;
+        margin: 5px;
+      }
+      .divCss label,
+      .divSelect label {
+        margin-right: 20px;
+      }
+      #buttonCss {
+        margin: 5px;
+      }
+      .neverused {
+        margin-right: 200px;
+      }
+      table,
+      tr,
+      td,
+      th {
+        border: 1px solid black;
+        padding: 5px;
+      }
+      table {
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Online Shop</h1>
+    <div class="divCss">
+      <label for="name">Name and Username</label>
+      <input type="text" name="name" id="name" value="Petar Petar" />
+    </div>
+    <div class="divCss">
+      <label for="item">Item</label>
+      <input type="text" name="item" id="item" value="Item" />
+    </div>
+    <div class="divCss">
+      <label for="itemCode">Item code</label>
+      <input type="text" name="itemCode" id="itemCode" value="ItemCode123" />
+    </div>
+    <div class="divCss">
+      <label for="itemDes">Item description</label>
+      <input type="text" name="itemDes" id="itemDes" value="ItemDes" />
+    </div>
+    <div class="divCss">
+      <label for="price">Price</label>
+      <input type="number" name="price" id="price" value="100" />
+    </div>
+    <div class="divSelect">
+      <label for="used">Used</label>
+      <select name="optSelection" id="optSelection">
+        <option value="used">Used</option>
+        <option value="neverused">Never Used</option>
+      </select>
+    </div>
+    <button id="buttonCss" onclick="addTables()">Add Tables</button>
+    <p>
+      Active Items: <span style="font-weight: bold" id="changeCounter"></span>
+    </p>
+    <div style="display: inline-block" class="neverused">
+      <h2>Unused Items</h2>
+      <div style="display: inline-block" class="neverused">
+        <h2>Unused Items</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Item</th>
+              <th>Price</th>
+              <th>Code</th>
+              <th>Number</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="neverused"></tbody>
+        </table>
+      </div>
+      <div style="display: inline-block" class="used">
+        <h2>Used Items</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Item</th>
+              <th>Price</th>
+              <th>Code</th>
+              <th>Number</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="used"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      let counter = 0;
+      function addTables() {
+        let name = document.getElementById("name").value;
+        let item = document.getElementById("item").value;
+        let itemCode = document.getElementById("itemCode").value;
+        let itemDesOrginal = document.getElementById("itemDes").value;
+        let price = document.getElementById("price").value;
+        parseInt(price);
+        let ifUsed = document.getElementById("optSelection").value;
+
+        price = price * 1.1;
+        price = price.toFixed(2);
+
+        let itemDes = itemDesOrginal;
+        itemDes = itemDesOrginal.replaceAll(/[0-9!]/g, "");
+
+        if (!name || !item || !itemCode || !itemDes || !price) {
+          alert("Please fill out the form");
+          return;
+        }
+        if (price < 0) {
+          alert("The price is too low");
+          return;
+        }
+        let check = document.getElementById(itemCode);
+        if (check != null) {
+          alert("The row with that code exist!");
+          return;
+        }
+        let createCard = document.getElementById(ifUsed);
+        let createRow =
+          "<tr id=" +
+          itemCode +
+          "><td>" +
+          name +
+          "</td><td>" +
+          item +
+          "</td><td>" +
+          price +
+          "</td><td>" +
+          itemCode +
+          "</td><td>" +
+          itemDes +
+          "</td><td><button id='buttonRemove' onclick='sellRow(this, \"" +
+          itemCode +
+          "\")'>Sell</button></td></tr>";
+        createCard.innerHTML += createRow;
+      }
+
+      function sellRow(buttonRemove, idCode) {
+        counter++;
+        let idcodeColor = document.getElementById(idCode);
+        buttonRemove.remove();
+        idcodeColor.style.backgroundColor = "green";
+        let counterChange = document.getElementById("changeCounter");
+        console.log(counter);
+        counterChange.innerHTML += counter;
+      }
+    </script>
+  </body>
+</html>
