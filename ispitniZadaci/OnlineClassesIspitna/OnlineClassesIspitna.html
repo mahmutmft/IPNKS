@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Class</title>
+    <style>
+        h1{
+            text-align: center;
+        }
+        .divClass{
+            padding: 10px;
+        }
+        .divClass label{
+            display: inline-block;
+            width: 150px;
+        }
+        #buttonAdd{
+            margin: 10px;
+        }
+        #idTable{
+            border: 1px soldi black;
+            border-collapse: collapse;
+        }
+        #idTable th, #idTable tr, #idTable td{
+            border: 1px solid black;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Online Class</h1>
+    <div class="divClass">
+        <label for="name">Name and username</label>
+        <input type="text" id="name" name="name" value="Mahmut Miftaroski">
+    </div>
+    <div class="divClass">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" value="mahmut@gmail.com">
+    </div>
+    <div class="divClass">
+        <label for="age">Age</label>
+        <input type="number" id="age" name="age" value="20">
+    </div>
+    <div class="divClass">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" value="miftarosky">
+    </div>
+    <div class="divClass">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" value="password">
+    </div>
+    <div class="divClass">
+        <label for="">Role</label>
+        <select name="roles" id="roles">
+            <option value="teacher">Teacher</option>
+            <option value="student">Student</option>
+        </select>
+    </div>
+    <button id="buttonAdd" onclick="addRow()">Add</button>
+    <p>Avialable teacher: <span id="teacher" style="font-weight: bold;">0</span></p>
+    <table id="idTable">
+        <thead>
+            <tr>
+                <th style="width: 150px; text-align: center;">Name</th>
+                <th style="width: 100px; text-align: center;">Username</th>
+                <th style="width: 150px; text-align: center;">Email</th>
+                <th style="width: 50px; text-align: center;">Age</th>
+                <th style="width: 80px; text-align: center;">Role</th>
+                <th style="width: 50px; text-align: center;">Action</th>
+            </tr>
+        </thead>
+        <tbody id="tbodyCreate">
+
+        </tbody>
+    </table>
+    <div id="as"></div>
+    <script>
+        function addRow(){
+            let name = document.getElementById("name");
+            name = name.value;
+            let email = document.getElementById("email");
+            email = email.value;
+            let age = document.getElementById("age");
+            age = age.value;
+            let username = document.getElementById("username");
+            username = username.value;
+            let password = document.getElementById("password");
+            password = password.value;
+            let roles = document.getElementById("roles");
+            roles = roles.value;
+
+            if(!name || !email ||!age||!username||!password||!roles){
+                alert("Please fill out the form!")
+                return;
+            }
+
+            let check = document.getElementById(username);
+            if(check!=null){
+                alert("iskoristeno")
+                return;
+            }
+            //TODO: Да се провери лозинката да биде долга барем 10 знаци да содржи барем една голема буква и една бројка
+            
+            //TODO: Корисникот помал од 18 години не може да биде наставник на платформата да не треба да се овозможи вакво додавање
+
+            //TODO: Сите студенти се обоени во сина боја, а наставниците се обоени во зелена
+
+            //TODO: Наставник ролот дополнително има копче Hire при клик копчето се бириши од редицата а редицата се обојува во сино
+
+            //TODO: Слободни професори кои можат да се ангажираат за часовите 
+
+            let tbodyElement = document.getElementById("tbodyCreate");
+            let createRow;
+            if(roles == "student"){
+                createRow = "<tr id="+username+"><td style='text-align: center;'>"+name+"</td><td style='text-align: center;'>"+username+"</td><td style='width: 150px; text-align: center;''>"+email+"</td><td style='text-align: center;'>"+age+"</td><td style='text-align: center;'>"+roles+"</td></tr>"
+            }
+            else{
+                createRow = "<tr id="+username+"><td style='text-align: center;'>"+name+"</td><td style='text-align: center;'>"+username+"</td><td style='width: 150px; text-align: center;''>"+email+"</td><td style='text-align: center;'>"+age+"</td><td style='text-align: center;'>"+roles+"</td><td style='text-align: center;'><button>Hire</button></td></tr>"
+            }
+                tbodyElement.innerHTML += createRow;
+        }
+    </script>
+</body>
+</html>
