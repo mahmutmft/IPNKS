@@ -97,11 +97,30 @@
 
             let check = document.getElementById(username);
             if(check!=null){
-                alert("iskoristeno")
+                alert("The username is already taken!");
                 return;
             }
             //TODO: Да се провери лозинката да биде долга барем 10 знаци да содржи барем една голема буква и една бројка
-            
+            let flagUpperCase = false;
+            let flagNumber = true;
+            if(password.length >= 10){
+                for(let i=0;i<password.length;i++){
+                    if(password[i] == password[i].toUpperCase() && isNaN(password[i])){
+                        flagUpperCase = true;
+                    }
+                    if(!isNaN(password[i])){
+                        flagNumber = true;
+                    }
+                }
+            }
+            else{
+                alert("The password must be at least 10 characters long.");
+                return;
+            }
+            if(!flagNumber || !flagUpperCase){
+                alert("The password needs to contain at least one uppercase letter and one number.");
+                return;
+            }
             //TODO: Корисникот помал од 18 години не може да биде наставник на платформата да не треба да се овозможи вакво додавање
 
             //TODO: Сите студенти се обоени во сина боја, а наставниците се обоени во зелена
