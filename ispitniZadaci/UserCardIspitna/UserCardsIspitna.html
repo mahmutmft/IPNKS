@@ -92,7 +92,12 @@
           alert("Width and height must be between 0 and 350.");
           return;
         }
-        //TODO: ОЗНАКАТА НА КАРТИЧКАТА ТРЕБА ДА ПРОВЕРИ ДАЛИ Е СОСТАВЕНА САМО ОД МАЛИ БУКВИ И ПРИТОА НЕ СМЕЕ ДА СОДРЖИ БРОЕВИ
+        for (let i = 0; i < cardId.length; i++) {
+          if (cardId[i] !== cardId[i].toLowerCase() || !isNaN(cardId[i])) {
+            alert("Card ID must consist of only lowercase letters and no numbers.");
+            return;
+          }
+        }
         let check = document.getElementById(username);
         if (check != null) {
           check.style.backgroundColor = color;
