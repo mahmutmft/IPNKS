@@ -107,6 +107,7 @@
 
     <script>
       let counter = 0;
+
       function addTables() {
         let name = document.getElementById("name").value;
         let item = document.getElementById("item").value;
@@ -119,8 +120,7 @@
         price = price * 1.1;
         price = price.toFixed(2);
 
-        let itemDes = itemDesOrginal;
-        itemDes = itemDesOrginal.replaceAll(/[0-9!]/g, "");
+        let itemDes = itemDesOrginal.replaceAll(/[0-9!]/g, "");
 
         if (!name || !item || !itemCode || !itemDes || !price) {
           alert("Please fill out the form");
@@ -132,9 +132,10 @@
         }
         let check = document.getElementById(itemCode);
         if (check != null) {
-          alert("The row with that code exist!");
+          alert("The row with that code exists!");
           return;
         }
+
         let createCard = document.getElementById(ifUsed);
         let createRow =
           "<tr id=" +
@@ -153,9 +154,9 @@
           itemCode +
           "\")'>Sell</button></td></tr>";
         createCard.innerHTML += createRow;
+
         counter++;
         let counterChange = document.getElementById("changeCounter");
-        console.log(counter);
         counterChange.innerHTML = counter;
       }
 
@@ -165,7 +166,6 @@
         buttonRemove.remove();
         idcodeColor.style.backgroundColor = "green";
         let counterChange = document.getElementById("changeCounter");
-        console.log(counter);
         counterChange.innerHTML = counter;
       }
     </script>
