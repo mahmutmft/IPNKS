@@ -25,6 +25,7 @@
         #idTable th, #idTable tr, #idTable td{
             border: 1px solid black;
             padding: 10px;
+            background: ;
         }
     </style>
 </head>
@@ -58,7 +59,7 @@
         </select>
     </div>
     <button id="buttonAdd" onclick="addRow()">Add</button>
-    <p>Avialable teacher: <span id="teacher" style="font-weight: bold;">0</span></p>
+    <p>Avialable teacher: <span id="avbTeacher" style="font-weight: bold;">0</span></p>
     <table id="idTable">
         <thead>
             <tr>
@@ -76,6 +77,8 @@
     </table>
     <div id="as"></div>
     <script>
+        let avbTeacher = 0;
+        let changeAvb = document.getElementById("avbTeacher")
         function addRow(){
             let name = document.getElementById("name");
             name = name.value;
@@ -100,7 +103,7 @@
                 alert("The username is already taken!");
                 return;
             }
-            //TODO: Да се провери лозинката да биде долга барем 10 знаци да содржи барем една голема буква и една бројка
+
             let flagUpperCase = false;
             let flagNumber = true;
             if(password.length >= 10){
@@ -121,23 +124,36 @@
                 alert("The password needs to contain at least one uppercase letter and one number.");
                 return;
             }
-            //TODO: Корисникот помал од 18 години не може да биде наставник на платформата да не треба да се овозможи вакво додавање
-
-            //TODO: Сите студенти се обоени во сина боја, а наставниците се обоени во зелена
-
-            //TODO: Наставник ролот дополнително има копче Hire при клик копчето се бириши од редицата а редицата се обојува во сино
-
-            //TODO: Слободни професори кои можат да се ангажираат за часовите 
+            if(roles === "teacher" && age<=18){
+                alert("You are too yong for to be a teacher");
+                return
+            }
+            let rowColor;
+            if(roles === "teacher"){
+                rowColor = "green";
+            }
+            else{
+                rowColor = "blue";
+            }
 
             let tbodyElement = document.getElementById("tbodyCreate");
             let createRow;
             if(roles == "student"){
-                createRow = "<tr id="+username+"><td style='text-align: center;'>"+name+"</td><td style='text-align: center;'>"+username+"</td><td style='width: 150px; text-align: center;''>"+email+"</td><td style='text-align: center;'>"+age+"</td><td style='text-align: center;'>"+roles+"</td></tr>"
+                createRow = "<tr style='background: "+rowColor+" ;' id="+username+"><td style='text-align: center;'>"+name+"</td><td style='text-align: center;'>"+username+"</td><td style='width: 150px; text-align: center;''>"+email+"</td><td style='text-align: center;'>"+age+"</td><td style='text-align: center;'>"+roles+"</td><td></td></tr>"
             }
             else{
-                createRow = "<tr id="+username+"><td style='text-align: center;'>"+name+"</td><td style='text-align: center;'>"+username+"</td><td style='width: 150px; text-align: center;''>"+email+"</td><td style='text-align: center;'>"+age+"</td><td style='text-align: center;'>"+roles+"</td><td style='text-align: center;'><button>Hire</button></td></tr>"
+                createRow = "<tr style='background: "+rowColor+" ;' id="+username+"><td style='text-align: center;'>"+name+"</td><td style='text-align: center;'>"+username+"</td><td style='width: 150px; text-align: center;''>"+email+"</td><td style='text-align: center;'>"+age+"</td><td style='text-align: center;'>"+roles+"</td><td style='text-align: center;'><button onclick='removeButton(this)'>Hire</button></td></tr>"
+                avbTeacher++;
+                changeAvb.innerHTML = avbTeacher;
             }
                 tbodyElement.innerHTML += createRow;
+        }
+        function removeButton(thisButton){
+            let changeColor = thisButton.parentNode.parentNode;
+            changeColor.style.background = "grey";
+            thisButton.remove();
+            avbTeacher--;
+            changeAvb.innerHTML = avbTeacher;
         }
     </script>
 </body>
