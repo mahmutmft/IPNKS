@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This repository contains exam assignments completed as part of the **Internet Programming - Client-Side** course at [Your Faculty Name]. It showcases practical implementations of client-side programming concepts, focusing on web development fundamentals.
+This repository contains exam assignments completed as part of the **Internet Programming - Client-Side** course at FINKI. It showcases practical implementations of client-side programming concepts, focusing on web development fundamentals.
 
 ## Contents
 
