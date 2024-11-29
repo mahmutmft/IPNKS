@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h2{
+            text-align: center;
+        }
+        .div1{
+            display: inline-block;
+            margin-right: 100px;
+        }
+        .div1 div label{
+            display: inline-block;
+            padding: 10px 10px 10px 0px;
+            width: 100px;
+        }
+        .div2{
+            display: inline-block;
+            vertical-align: top;
+        }
+        table{
+            text-align: center;
+            border-collapse: collapse;
+        }
+        table td,table th{
+            border: 1px solid black;
+
+        }
+        body > div.div1 > button{
+            margin-top: 20px;
+        }
+        #rowHolder > tr > td:nth-child(6) > button{
+            width: 60px;
+            margin: 10px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+        #rowHolder > tr > td:nth-child(6) > button:nth-child(1){
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="div1">
+        <h2>Details</h2>
+        <div class="classStyle">
+            <label for="name">Name</label>
+            <input type="text" id="name" value="Marko">
+        </div>
+        <div class="classStyle">
+            <label for="index">Index</label>
+            <input type="text" id="index" value="213456">
+        </div>
+        <div class="classStyle">
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" value="070123456">
+        </div>
+        <div class="classStyle">
+            <label for="grades">Grades</label>
+            <input type="radio" name="grade" id="6"> 6
+            <input type="radio" name="grade" id="7"> 7
+            <input type="radio" name="grade" id="8"> 8 
+            <input type="radio" name="grade" id="9"> 9 
+            <input type="radio" name="grade" id="10"> 10
+        </div>
+        <div class="classStyle">
+            <label for="session">Session</label>
+            <select name="" id="session">
+                <option value="january">January</option>
+                <option value="june">June</option>
+                <option value="september">September</option>
+            </select>
+        </div>
+        <button onclick="importStudent()">
+            Import Student
+        </button>    
+    </div>
+    <div class="div2">
+        <h2>Revert History</h2>
+        <ul id="listHolder">
+
+        </ul>
+    </div>
+    
+    <table style="margin-top: 50px;">
+        <p style="font-size: 30px;"><strong>Students (average grade: <span id="avgGrade">0</span>)</strong></p>
+        <th style="width: 100px;">Name</th>
+        <th style="width: 100px;">Index</th>
+        <th style="width: 100px;">Phone</th>
+        <th style="width: 100px;">Grade</th>
+        <th style="width: 100px;">Session</th>
+        <th style="width: 200px;">Action</th>
+        <tbody id="rowHolder">
+
+        </tbody>
+    </table>
+
+    <script>
+        let gradeavg = 0;
+        let counter = 0;
+        let totalGrade = 0;
+        function importStudent(){
+            let name = document.getElementById("name").value;
+            let index = document.getElementById("index").value;
+            let phone = document.getElementById("phone").value;
+            let sessions = document.getElementById("session").value;
+            let grades = document.getElementsByName("grade");
+            let gradeNumber = 0;
+            for(let i = 0; i<grades.length;i++){
+                if(grades[i].checked){
+                   gradeNumber = parseInt(grades[i].id);
+                }
+            }
+            if(!name || !index || !phone || !sessions || gradeNumber <=0 ){
+                alert("Please fill the form out")
+                return;
+            }
+            console.log();
+            let createRow = document.getElementById("rowHolder");
+            let row = "<tr><td>"+name+"</td><td>"+index+"</td><td>"+phone.slice(0,3) + "/" + phone.slice(3,6) + "-" + phone.slice(6,phone.length)+"</td><td>"+gradeNumber+"</td><td>"+sessions+"</td><td><button onclick='confirmClicked(this)'>Confirm</button><button onclick='revertClicked(this,"+index+","+gradeNumber+")'>Revert</button></td></tr>"
+            createRow.innerHTML += row;
+            counter++;
+            console.log(counter);
+            avg();
+        }
+        function avg(){
+            let grades = document.getElementsByName("grade");
+            let gradeNumber = 0;
+            for(let i = 0; i<grades.length;i++){
+                if(grades[i].checked){
+                   gradeNumber = parseInt(grades[i].id);
+                }
+            }
+            totalGrade += gradeNumber;
+            gradeavg = totalGrade / counter; 
+            let changeGrade = document.getElementById("avgGrade");
+            changeGrade.innerHTML = gradeavg.toFixed(2);
+        }
+        function confirmClicked(obj){
+            obj.disabled = true;
+            let findRevertButton = obj.parentNode.children[1];
+            findRevertButton.disabled = true;
+            let styleRow = obj.parentNode.parentNode;
+            console.log(styleRow);
+            console.log(findRevertButton);
+            styleRow.style.background = "lightgreen";
+        }
+        function revertClicked(o, index, grade){
+            let removeRow = o.parentNode.parentNode;
+            let putInRow = document.getElementById("listHolder");
+            let row = "<li><span>"+index+" - grade "+grade+"</li>";
+            putInRow.innerHTML+=row;
+            removeRow.remove();
+        }
+        
+    </script>
+</body>
+</html>
