@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .classDiv{
+            display: inline-block;
+            width: 400px;
+        }
+        .class2{
+            display: inline-block;
+            vertical-align: top;
+            width: 400px;
+        }
+        .classStyle{
+            display: inline-block;
+            margin-right: 30px;
+            border: 1px solid black;
+            padding: 10px;
+            margin-right: 10px;
+        }
+        .borevi{
+            display: inline-block;
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+            border-radius: 100%;
+            margin-right: 10px;
+            margin-bottom: 20px;
+            width: 20px;
+        }
+        .borjcinja{
+            border: 1px solid black;
+            display: inline-block;
+            width: 5px;
+            padding: 5px;
+            font-size: 10px;
+            text-align: center;
+            border-radius: 100%;
+            margin-right: 10px;
+
+        }
+    </style>
+</head>
+<body>
+    <h1>National Lottery Game</h1>
+    <div class="classDiv">
+        <h2>Assign form</h2>
+        <div>
+            <label for="name">Name and username</label>
+            <input type="text" name="name" id="name" value="Mahmut">
+        </div>
+        <div>
+            <label for="amount">Ticket amount</label>
+            <input type="number" name="amount" id="amount" value="100">
+        </div>
+        <div>
+            <label for="code">Code</label>
+            <input type="text" name="code" id="code" value="codice">
+        </div>
+        <div>
+            <label for="combination">Combination</label>
+            <input type="text" name="combination" id="combination" value="1,2,3,4,5,6,7">
+        </div>
+        <div>
+            <label for="bonus">Bonus</label>
+            <select name="bonus" id="bonus">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+        </div>
+        <button onclick="addCards()">Add</button>
+    </div>
+    <div class="class2">
+        <h2>Lucky numbers</h2>
+        <div id="luckGenerate">
+
+        </div>
+        <button onclick="generateNumbers()">Get weekly combinations</button>
+        <p>Total win: <span id="totalWins">0</span></p>
+    </div>
+    <div id="cardsHolder">
+
+    </div>
+
+    <script>
+        let cardsCounter = 0;
+        let combinations = [];
+        function addCards(){
+            let name = document.getElementById("name");
+            name = name.value;
+            let amount = document.getElementById("amount");
+            amount = amount.value;
+            let code = document.getElementById("code");
+            code = code.value;
+            let combination = document.getElementById("combination");
+            combination = combination.value;
+            let bonus = document.getElementById("bonus");
+            bonus = bonus.value;
+
+            if(!name || !amount || !code || !combination){
+                alert("Please fill out the form!")
+                return;
+            }
+            let check = document.getElementById(code);
+
+            if(check!=null){
+                alert("This code is already used please use another code");
+                return;
+            }
+            for(let i = 0; i<code.length; i++){
+                if(!(code[i]>='a' && code[i]<='z') && (!(code[i]>="A" && code[i]<='Z') && code[i] !=="!" && code[i]!=="%")){
+                    alert("Code can contain just letters and ! &");
+                    return;
+                }
+            }
+
+            let createCard = document.getElementById("cardsHolder");
+            let nizaComb = combination.split(",");
+            combinations += nizaComb;
+            let nizaice = ""
+            for(let i = 0;i<nizaComb.length; i++){
+                nizaice += "<span class = 'borjcinja'>"+nizaComb[i]+"</span>";
+            }
+            let card = "<div class='classStyle' id="+code+"><p>Name: "+name+"</p><p>Code: "+code+"</p><p>Combination: "+nizaice+"</p><p>Initial amount: "+amount+"</p><p>Total win: <span id='tWin'>0</span></p><div id='button'></div></div>"
+            createCard.innerHTML += card;
+            cardsCounter++;
+        }
+        function generateNumbers(){
+            let weekly = ""
+            if(cardsCounter>5){
+                alert("Please create 5 cards");
+                return;
+            }
+            let usedNumbers = [];
+            for(let i=0;i<7;i++){
+                let numberRandom = Math.floor(1+Math.random()*31);
+                while(usedNumbers.includes(numberRandom)){
+                    numberRandom = Math.floor(1+Math.random()*31);
+                }
+                usedNumbers.push(numberRandom);
+            }
+            let addNumbers = "";
+            for(let i = 0;i<usedNumbers.length; i++){
+                addNumbers += "<span class ='borevi'>"+usedNumbers[i]+"</span>";
+            }
+            let insertNumber = document.getElementById("luckGenerate");
+            insertNumber.innerHTML = addNumbers;
+
+            let cardHolder = document.getElementById("cardHolders");
+            let cards = cardHolder.children;
+            for(let i=0;i<cards.length;i++){
+                let card = cards[i];
+                console.log(card[i]);
+                let combinationElement = card.getElementsByClassName("borjcinja");
+                let cardcombination = [];
+                for(let j=0;i<combinationElement;j++){
+                    cardcombination.push(parseInt(combinationElement[j].textContent));
+                }
+            }
+            
+            for(let i = 0 ; i<cardsCounter; i++){
+                let buttonAdd = document.getElementById("button");
+                buttonAdd.id = "helo";
+                let createButton = "<button onclick='getPaid()'>Get Paid</button>";
+                buttonAdd.innerHTML +=createButton;
+            }
+            combinations.split(",")
+        }
+    </script>   
+</body>
+</html>
