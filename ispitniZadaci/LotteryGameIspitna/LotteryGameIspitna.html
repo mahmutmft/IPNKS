@@ -149,8 +149,9 @@
             let insertNumber = document.getElementById("luckGenerate");
             insertNumber.innerHTML = addNumbers;
 
-            let cardHolder = document.getElementById("cardHolders");
-            let cards = cardHolder.children;
+            let cardHolder = document.getElementById("cardsHolder");
+            let cards = cardHolder.childNodes;
+            console.log(cards);
             for(let i=0;i<cards.length;i++){
                 let card = cards[i];
                 console.log(card[i]);
