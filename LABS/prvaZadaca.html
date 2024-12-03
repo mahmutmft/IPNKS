@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let mernaEdinica = prompt(
+        "Vo koja merna edinica sakate da konvertirate?"
+      );
+      let temperatura = prompt("Vnesete temperatura:");
+      if (mernaEdinica === "F") {
+        let f = (temperatura * 9) / 5 + 32;
+        alert("Temperaturata e " + parseFloat(f).toFixed(2) + "F");
+      } else {
+        let c = ((temperatura - 32) * 5) / 9;
+        alert("Temperaturata e " + parseFloat(c).toFixed(2) + "C");
+      }
+    </script>
+  </body>
+</html>
