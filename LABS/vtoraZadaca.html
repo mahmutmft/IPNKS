@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Palindrome Checker</title>
+  </head>
+  <body>
+    <script>
+      function isPalidrom(broj) {
+        let reversed = 0;
+        let original = broj;
+        while (broj > 0) {
+          const brojka = broj % 10;
+          reversed = reversed * 10 + brojka;
+          broj = Math.floor(broj / 10);
+        }
+        return original === reversed;
+      }
+
+      let prvBroj = prompt("Внеси го првиот број:");
+      prvBroj = parseInt(prvBroj);
+      let vtorBroj = prompt("Внеси го вториот број:");
+      vtorBroj = parseInt(vtorBroj);
+
+      let broj = prvBroj + vtorBroj;
+
+      if (isPalidrom(broj)) {
+        alert("Збироот на двата броја е палиндром");
+      } else {
+        alert("Збироот на двата броја не е палиндром");
+      }
+    </script>
+  </body>
+</html>
