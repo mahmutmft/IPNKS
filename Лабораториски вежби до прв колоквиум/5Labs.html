@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let forma = prompt("Vnesi forma:");
+        if (forma == "krug") {
+            let radius = prompt("Vnesi radius za krugot:");
+            radius = parseInt(radius);
+            let perimetar = 2 * radius * 3.14;
+            let ploshtina = 3.14 * radius * radius;
+            alert("Perimetarot na krugot e pomal od ploshtinata za " + (ploshtina - perimetar));
+        }
+        else if (forma == "kvadrat") {
+            let strana = prompt("Vnesi dolzina na stranata");
+            strana = parseInt(strana);
+            let perimetar = 4 * strana;
+            let ploshtina = strana * strana;
+            alert("Perimetarot na kvadratot e pomal od ploshtinata za " + (ploshtina - perimetar));
+        }
+        else {
+            alert("Invalid");
+        }
+    </script>
+</body>
+</html>
