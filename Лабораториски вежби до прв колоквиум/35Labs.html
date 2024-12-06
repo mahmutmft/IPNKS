@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .tabela{
+            max-width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 50px;
+        }
+        table{
+            border: 1px solid black;
+            text-align: center;
+        }
+        table th, table td{
+            padding: 10px 100px;
+        }
+        #passed{
+            background: green;
+            color: white;
+        }
+        #failed{
+            background: red;
+            color: white;
+        }
+        #clear{
+            background: white;
+            columns: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="tabela">
+        <table>
+            <thead>
+                <th>Number</th>
+                <th>Name</th>
+                <th>Last Name</th>
+                <th>Points</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Petar</td>
+                    <td>Petroski</td>
+                    <td>85</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Marko</td>
+                    <td>Markoski</td>
+                    <td>92</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Ilija</td>
+                    <td>Ilievski</td>
+                    <td>7</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Jovan</td>
+                    <td>Jovanoski</td>
+                    <td>32</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Stefan</td>
+                    <td>Stefanoski</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Kristijan</td>
+                    <td>Kristovski</td>
+                    <td>80</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Elena</td>
+                    <td>Elenoska</td>
+                    <td>83</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Angela</td>
+                    <td>Angeloska</td>
+                    <td>90</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Mihail</td>
+                    <td>Petroski</td>
+                    <td>76</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>Vladimir</td>
+                    <td>Petroski</td>
+                    <td>43</td>
+                </tr>
+            </tbody>
+        </table>
+        <button style="padding: 15px 20px; background: green; border: 0px solid transparent; margin-top: 20px; margin-right: 30px; color: white;" onclick="passed()">PASSED</button>
+        <button style="padding: 15px 20px; background: red; border: 0px solid transparent; margin-top: 20px; margin-right: 30px; color: white;" onclick="failed()">FAILED</button>
+        <button style="padding: 15px 20px; background: lightblue; border: 0px solid transparent; margin-top: 20px; margin-right: 30px; color: white;" onclick="clearded()">CLEARD</button>
+    </div>
+    <script>
+        function passed(){
+            var rows = document.getElementsByTagName("tr");
+            for(let i = 1; i< rows.length; i++){
+                let cell = rows[i].getElementsByTagName("td");
+                let points = parseInt(cell[3].textContent);
+                if(points>=50){
+                    rows[i].id = "passed";
+                }
+            }
+        }
+        function failed(){
+            console.log("raboti")
+            var rows = document.getElementsByTagName("tr");
+            for(let i = 1; i< rows.length; i++){
+                let cell = rows[i].getElementsByTagName("td");
+                let points = parseInt(cell[3].textContent);
+                if(points<50){
+                    rows[i].id = "failed";
+                }
+            }
+        }
+        function clearded(){
+            var rows = document.getElementsByTagName("tr");
+            for(let i = 1; i< rows.length; i++){
+                rows[i].style.background = "white";
+                rows[i].style.color = "black";
+
+            }
+        }
+        
+    
+    </script>
+</body>
+</html>
