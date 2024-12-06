@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        while(true){
+            let broj = prompt("Vnesi nov broj");
+            if(broj == "."){
+                break;
+            }
+            broj = parseInt(broj);
+            if(broj <= 1){
+                document.write(broj + " ne e prost broj.<br>");
+            }
+            else{
+                let prost = true;
+                for(let i = 2; i * i <= broj; i++){
+                    if(broj % i == 0){
+                        prost = false;
+                        break;
+                    }
+                }
+                if(prost){
+                    document.write(broj + " e prost broj.<br>");
+                }
+                else{
+                    document.write(broj + " ne e prost broj.<br>");
+                }
+            }
+        }
+    </script>
+</body>
+</html>
