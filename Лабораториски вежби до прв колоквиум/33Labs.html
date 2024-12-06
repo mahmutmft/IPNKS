@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table{
+            margin-top: 30px;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        table th{
+            border: 1px solid black;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="tabelaInsert">
+        <label for="ime">Име на продукт</label>
+        <input type="text" id="ime" name="ime"> <br>
+        <label for="shifra">Шифра</label>
+        <input type="number" id="shifra" name="shifra"><br>
+        <label for="ceba">Цена</label>
+        <input type="number" id="cena" name="cena"><br>
+        <label for="kolicina">Продадена количина</label>
+        <input type="number"id="kolicina" name="kolicina" >
+        <button onclick="addRow()">Додади</button>
+    </div>
+    <table>
+        <thead>
+            <th>Име</th>
+            <th>Шифра</th>
+            <th>Цена</th>
+            <th>Количина</th>
+            <th>Вкупна продажба</th>
+        </thead>
+        <tbody id="tabelBody">
+            
+        </tbody>
+    </table>
+
+    <script>
+        function addRow(){
+            
+        }
+    </script>
+</body>
+</html>
