@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let broj = confirm("Dali sakash da vnesish broj?");
+        console.log(broj);
+        if(broj == true){
+            let brojce = prompt("Vnesi broj")
+            brojce = parseInt(brojce);
+            if(brojce%2==0){
+                alert("Vneseniot broj e paren")
+            }
+            else{
+                alert("Vneseniot broj e neparen")
+            }
+        }
+        else if(broj == false){
+            alert("Nema da vnesite broj");
+        }
+    </script>
+</body>
+</html>
