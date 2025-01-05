@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       
+    </style>
+</head>
+<body>
+    <label for="red">Red:</label> <input type="number" id="red"> <span>(0-255)</span> <br>
+    <label for="green">Green:</label> <input type="number" id="green"> <span>(0-255)</span> <br>
+    <label for="blue">Blue:</label> <input type="number" id="blue"> <span>(0-255)</span> <br>
+    <br><br>
+
+    <label for="start">Start</label>
+    <input type="radio" name="prazno" id="end"><br>
+
+    <label for="end">End</label>
+    <input type="radio" name="prazno" id="end">
+    <br><br>
+
+    <label for="text">Text</label>
+    <input type="text" name="" id="text">
+    <br><br>
+
+    <button onclick="add()">Add</button>
+    <button onclick="deleteItem()">Delete</button>
+
+    <div id="Inputi">
+
+    </div>
+    <script>
+        function add(){
+            let red = document.getElementById("red").value;
+            let blue = document.getElementById("blue").value;
+            let green = document.getElementById("green").value;
+            let text = document.getElementById("text").value;
+            let textOrginal = `<p style ='color: rgb(${red}, ${green}, ${blue}); '> ${text}</p>`;
+            document.getElementById("Inputi").innerHTML += textOrginal;
+        }
+        function deleteItem(obj){
+
+        }
+    </script>
+</body>
+</html>
