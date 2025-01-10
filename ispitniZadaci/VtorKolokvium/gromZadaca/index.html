@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <style>
+        .box {
+            display: inline-block;
+            width: 800px;
+            height: 600px;
+            border: 1px solid black;
+            position: relative;
+        }
+        .skorce {
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 10px;
+        }
+        .forma {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="kutivce"></div>
+<p class="skorce">Score <span>0</span></p>
+<script>
+    let counter = 0;
+   // let url = "https://webhook.site/76b488d1-2ef0-4398-8b76-06405f9f4bba";
+   // let url = "text.json";
+    fetch(url)
+        .then(response => response.json())
+        .then(function (data) {
+            for (let i = 0; i < data.length; i++) {
+                counter++;
+                let forma = `<div id="${data[i].id}" strana="0" class="forma" direction="${data[i].dir}" style="width: ${data[i].width}; height: ${data[i].height}; background: ${data[i].color}; left: ${data[i].left}px; top: ${data[i].top}px"></div>`;
+                document.getElementById("kutivce").innerHTML += forma;
+            }
+            setInterval(move, 50);
+        });
+
+    function move() {
+        let elements = document.getElementById("kutivce").children;
+        for (let i = 0; i < counter; i++) {
+            let element = elements[i];
+            let direction = element.getAttribute("direction");
+            let strana = element.getAttribute("strana");
+
+            let positionX = parseInt(element.style.top.split("px")[0]);
+            let positionY = parseInt(element.style.left.split("px")[0]);
+            let width = parseInt(element.style.width.split("px")[0]);
+            let height = parseInt(element.style.height.split("px")[0]);
+
+            if (direction === "vertical") {
+                if (strana === "0") {
+                    if (positionX >= 600 - height) {
+                        element.setAttribute("strana", "1");
+                    } else {
+                        element.style.top = positionX + 5 + "px";
+                    }
+                } else if (strana === "1") {
+                    if (positionX <= 0) {
+                        element.setAttribute("strana", "0");
+                    } else {
+                        element.style.top = positionX - 5 + "px";
+                    }
+                }
+            }
+
+            if (direction === "horizontal") {
+                if (strana === "0") {
+                    if (positionY >= 800 - width) {
+                        element.setAttribute("strana", "1");
+                    } else {
+                        element.style.left = positionY + 5 + "px";
+                    }
+                } else if (strana === "1") {
+                    if (positionY <= 0) {
+                        element.setAttribute("strana", "0");
+                    } else {
+                        element.style.left = positionY - 5 + "px";
+                    }
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>
