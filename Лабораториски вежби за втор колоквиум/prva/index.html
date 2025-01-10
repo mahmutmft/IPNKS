@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        button{
+            padding: 10px 20px;
+        }
+        #player{
+            position: absolute;
+            width: 150px;
+            margin: 5px;
+            top: 100px;
+        }
+        #alien{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+        }
+        .bullet{
+            background: black;
+            border: 2px solid black;
+            width: 5px;
+            height: 2px;
+        }
+    </style>
+</head>
+<body>
+<button onclick="moveUp()">Up</button> <button onclick="moveDown()">Down</button> <button onclick="shoot()">Shoot</button>
+<div id="igra">
+    <img src="images/unnamed.png" alt="player" id="player" style="top:100px; left: 10px">
+    <img src="images/alien.png" alt="alien" id="alien" onload="randomPositionAlien()">
+</div>
+<script>
+    function randomPositionAlien(){
+        let positionX = Math.floor(Math.random() * 550);
+        let positionY = Math.floor(Math.random() * (850-200)) + 200;
+        document.getElementById("alien").style.top = positionX + "px";
+        document.getElementById("alien").style.left = positionY + "px";
+    }
+
+    function moveUp(){
+        let player = document.getElementById("player");
+        let pos = parseInt(player.style.top.split("px")[0]);
+        pos = pos - 10 + "px";
+        player.style.top = pos;
+    }
+
+    function moveDown(){
+        let player = document.getElementById("player");
+        let pos = parseInt(player.style.top.split("px")[0]);
+        pos = pos + 10 + "px";
+        player.style.top = pos;
+    }
+
+    function shoot(){
+        let topPos = parseInt(document.getElementById("player").style.top.split("px")[0]);
+        let leftPos = parseInt(document.getElementById("player").style.left.split("px")[0]);
+
+        let bullet = document.createElement("div");
+        bullet.classList.add("bullet");
+        bullet.style.position = "absolute";
+        bullet.style.top = (topPos + 35) + "px";
+        bullet.style.left = (leftPos + 100) + "px";
+        document.getElementById("igra").appendChild(bullet);
+
+        let bulletInterval = setInterval(() => {
+            let bulletLeft = parseInt(bullet.style.left.split("px")[0]);
+            bullet.style.left = bulletLeft + 10 + "px";
+
+            let alien = document.getElementById("alien");
+            let alienTop = parseInt(alien.style.top.split("px")[0]);
+            let alienLeft = parseInt(alien.style.left.split("px")[0]);
+
+            let bulletTop = parseInt(bullet.style.top.split("px")[0]);
+
+            if (bulletLeft >= alienLeft && bulletLeft <= alienLeft + 100 && bulletTop >= alienTop && bulletTop <= alienTop + 100) {
+                alien.remove();
+                clearInterval(bulletInterval);
+            }
+
+            if (bulletLeft > 900) {
+                bullet.remove();
+                clearInterval(bulletInterval);
+            }
+        }, 20);
+    }
+</script>
+</body>
+</html>
