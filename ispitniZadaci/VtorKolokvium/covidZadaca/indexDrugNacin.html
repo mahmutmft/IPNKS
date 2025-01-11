@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        #photo:hover{
+            border-radius: 50%;
+            transition-duration: 0.5s;
+        }
+    </style>
+</head>
+<body>
+<h1>COVID-19 Data Dashboard</h1>
+<button>View All Countries</button>
+<select id="countrySelect" onchange="singleCountrie(this.value)">
+    <option value="">Select Country</option>
+</select>
+<br><br>
+<img src="#" alt="image" id="photo">
+<div id="chart">
+
+</div>
+<script>
+    let covidData = [];
+    let countrySelect = document.getElementById("countrySelect");
+    let flag = document.getElementById("photo");
+    async function fetchData() {
+        let response = await fetch("https://disease.sh/v3/covid-19/countries");
+        covidData = await response.json();
+        console.log(covidData);
+        dropDown();
+        showChart();
+    }
+
+    function dropDown() {
+        covidData.forEach(drzava => {
+            let option = document.createElement('option');
+            option.value = drzava.country;
+            option.textContent = drzava.country;
+            countrySelect.appendChild(option);
+        })
+    }
+
+    function showChart() {
+        flag.style.display = "none";
+        let countries = covidData.map(c => c.country);
+        let cases = covidData.map(c => c.cases);
+        let recovered = covidData.map(c => c.recovered)
+        let deaths = covidData.map(c => c.deaths);
+
+        let trace1 = {
+            x: countries,
+            y: cases,
+            name: 'cases',
+            type: 'bar'
+        };
+
+        let trace2 = {
+            x: countries,
+            y: deaths,
+            name: 'deaths',
+            type: 'bar'
+        };
+
+        let trace3 = {
+            x: countries,
+            y: recovered,
+            name: 'recovered',
+            type: 'bar'
+        };
+
+        var data = [trace1, trace2, trace3];
+
+        var layout = {barmode: 'group', title: "COVID-19 Data for All Countries"};
+
+        Plotly.newPlot('chart', data, layout);
+
+    }
+    function singleCountrie(name){
+        let country = covidData.find(c => c.country === name);
+        var data = [
+            {
+                x: ["Cases", "Recovered", "Deaths"],
+                y: [country.cases, country.recovered, country.deaths] ,
+                type: 'bar'
+            }
+        ];
+        Plotly.newPlot('chart', data);
+        showFlag(country);
+    }
+    function showFlag(name){
+        flag.style.display = "inline-block";
+        let photo = document.getElementById("photo");
+        photo.setAttribute("src", name.countryInfo.flag);
+    }
+    fetchData();
+</script>
+</body>
+</html>
