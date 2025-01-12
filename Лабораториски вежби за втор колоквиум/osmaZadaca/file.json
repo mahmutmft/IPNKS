@@ -1,0 +1,72 @@
+[
+  {
+    "city": "Skopje",
+    "temp": "12",
+    "day": "1"
+  },
+  {
+    "city": "Skopje",
+    "temp": "14",
+    "day": "2"
+  },
+  {
+    "city": "Skopje",
+    "temp": "16",
+    "day": "3"
+  },
+  {
+    "city": "Skopje",
+    "temp": "11",
+    "day": "4"
+  },
+  {
+    "city": "Skopje",
+    "temp": "12",
+    "day": "5"
+  },
+  {
+    "city": "Veles",
+    "temp": "12",
+    "day": "1"
+  },
+  {
+    "city": "Veles",
+    "temp": "10",
+    "day": "2"
+  },
+  {
+    "city": "Veles",
+    "temp": "11",
+    "day": "3"
+  },
+  {
+    "city": "Veles",
+    "temp": "14",
+    "day": "4"
+  },
+  {
+    "city": "Veles",
+    "temp": "9",
+    "day": "5"
+  },
+  {
+    "city": "Gevgelija",
+    "temp": "15",
+    "day": "1"
+  },
+  {
+    "city": "Gevgelija",
+    "temp": "17",
+    "day": "2"
+  },
+  {
+    "city": "Gevgelija",
+    "temp": "18",
+    "day": "3"
+  },
+  {
+    "city": "Gevgelija",
+    "temp": "13",
+    "day": "4"
+  }
+]

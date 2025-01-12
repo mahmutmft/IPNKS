@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+<h1>Weather Tracker</h1>
+<label for="city">City</label>
+<input type="text" id="city" value="Debar">
+<br><br>
+<label for="temp">Temp</label>
+<input type="number" id="temp" value="13">
+<br><br>
+<label for="day">Day of Month</label>
+<input type="number" id="day" value="4">
+<br><br>
+<button onclick="addRecords()">Add Record</button>
+<br>
+<table>
+    <thead>
+    <tr>
+        <td>City</td>
+        <td>Temp</td>
+        <td>Day</td>
+    </tr>
+    </thead>
+    <tbody id="ovde">
+    </tbody>
+</table>
+<button onclick="showChart()">Show Line Chart</button>
+<div id="chart"></div>
+<script>
+    let niza = [];
+    async function fetchData(){
+        let respons = await fetch("file.json");
+        niza = await respons.json();
+        console.log(niza);
+        addRaboke();
+    }
+    function addRaboke(){
+        niza.forEach(pod =>{
+            let trData1 = `<tr><td>${pod.city}</td><td>${pod.temp}</td><td>${pod.day}</td></tr>`;
+            document.getElementById("ovde").innerHTML += trData1;
+        })
+    }
+    function addRecords() {
+        let name = document.getElementById("city").value;
+        let temp = document.getElementById("temp").value;
+        let day = document.getElementById("day").value;
+        let elementce = {
+            city: name,
+            temp: temp,
+            day: day,
+        }
+        niza.push(elementce);
+        let trData = `<tr><td>${name}</td><td>${temp}</td><td>${day}</td></tr>`;
+        document.getElementById("ovde").innerHTML += trData;
+    }
+    function showChart() {
+        let cities = Array.from(new Set(niza.map(record => record.city)));
+        let data = cities.map(city  =>({
+            name: city,
+            x: niza.filter(record => record.city === city).map(record => record.day),
+            y: niza.filter(record => record.city === city).map(record => record.temp),
+            mode: 'lines+markers',
+            type: 'scatter'
+        }));
+        Plotly.newPlot('chart', data);
+    }
+    fetchData();
+</script>
+</body>
+</html>
