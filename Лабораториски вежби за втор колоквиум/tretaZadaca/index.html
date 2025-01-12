@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <style>
+        #container {
+            text-align: center;
+            width: 500px;
+            height: 500px;
+            margin: 50px auto auto auto;
+            border: 1px solid black;
+        }
+
+        #animationContainer {
+            border: 1px solid black;
+            margin: 20px auto auto auto;
+            width: 400px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <h1>Color Shape Animation</h1>
+    <label for="chooseColor">Choose a color</label>
+    <select name="color" id="chooseColor" onchange="circle()">
+        <option value="select">--Select--</option>
+        <option value="red">Red</option>
+        <option value="yellow">Yellow</option>
+        <option value="blue">Blue</option>
+    </select>
+    <br><br>
+    <button onclick="stopAnime()">Stop Animation</button>
+    <button onclick="resetAnimation()">Reset</button>
+    <div id="animationContainer">
+        <div id="circle">
+
+        </div>
+    </div>
+    <script>
+        let circleObj = document.getElementById("circle");
+        circleObj.style.display = "none";
+        let animeStop;
+
+        function circle() {
+            let option = document.getElementById("chooseColor").value;
+            anime.remove('#circle');
+            if (option === "select") {
+                circleObj.style.display = "none";
+            }
+            circleObj.style.display = "inline-block";
+            if (option === "red") {
+                circleRed();
+            }
+            if (option === "yellow") {
+                circleYellow();
+            }
+            if (option === "blue") {
+                circleBlue();
+            }
+        }
+
+        function circleRed() {
+            circleObj.style.background = "red";
+            anime({
+                targets: "#circle",
+                scale: 1.3,
+                duration: 500,
+                direction: 'alternate',
+                easing: 'easeInOutQuad'
+            });
+        }
+
+        function circleYellow() {
+            circleObj.style.background = "yellow";
+            anime({
+                targets: "#circle",
+                opacity: '50%',
+                duration: 1000,
+                direction: 'alternate',
+                easing: 'easeInOutQuad'
+            });
+        }
+
+        function circleBlue() {
+            circleObj.style.background = "blue";
+            anime({
+                targets: "#circle",
+                keyframes: [
+                    {translateY: 80},
+                    {translateY: -80},
+                ],
+                duration: 2000,
+                loop: true
+            });
+        }
+
+        function stopAnime() {
+          anime.remove('#circle');
+        }
+
+        function resetAnimation() {
+            anime.remove("#circle");
+            circleObj.style.transform = "scale(1)";
+            circleObj.style.opacity = 1;
+            circleObj.style.background = "transparent";
+            circleObj.style.display = "none";
+        }
+    </script>
+</div>
+</body>
+</html>
