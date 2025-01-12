@@ -51,7 +51,6 @@
     <script>
         let circleObj = document.getElementById("circle");
         circleObj.style.display = "none";
-        let animeStop;
 
         function circle() {
             let option = document.getElementById("chooseColor").value;
@@ -113,7 +112,7 @@
         function resetAnimation() {
             anime.remove("#circle");
             circleObj.style.transform = "scale(1)";
-            circleObj.style.opacity = 1;
+            circleObj.style.opacity = '1';
             circleObj.style.background = "transparent";
             circleObj.style.display = "none";
         }
