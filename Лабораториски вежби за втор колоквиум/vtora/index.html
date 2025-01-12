@@ -1,0 +1,95 @@
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Document</title>
+        <style>
+            #movies{
+                display: flex;
+            }
+            .watched{
+                display: inline-block;
+                border: 1px solid black;
+                width: 200px;
+                height: 150px;
+                text-align: center;
+                margin-left: 10px;
+                margin-top: 20px;
+            }
+            .toWatched{
+                display: inline-block;
+                border: 1px solid black;
+                width: 200px;
+                height: 150px;
+                text-align: center;
+                margin-left: 10px;
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+    <h1>Watch List</h1>
+    <h2>Add a Movie</h2>
+    <div class="forma">
+        <label for="title">Title:</label>
+        <input type="text" id="title" value="Mahmut"><br>
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre" value="Mahmut"><br>
+        <label>Status</label>
+        <input value="watched" type="radio" id="watched" name="status"><span>Watched</span>
+        <input value="towatch" type="radio" id="towatch" name="status"><span>To Watch</span>
+        <br>
+        <label for="rating">Rating:</label>
+        <input type="text" id="rating"> <br>
+        <button onclick="addMovie()">Add movie</button>
+    </div>
+    <hr>
+    <h1>Your Movie</h1>
+    <label for="filter">Filter by Status</label>
+    <select id="filter">
+        <option value="all">View All</option>
+        <option value="watched">Watched</option>
+        <option value="toWatch">To Watch</option>
+    </select> <br> <br>
+    <label for="search">Search by Genre:</label> <input type="text" id="search"> <button>Search</button>
+    <div id="movies">
+
+    </div>
+
+    <script>
+        let niza = [];
+        function addMovie(){
+            let title = document.getElementById("title").value;
+            let genre = document.getElementById("genre").value;
+            let rating = document.getElementById("rating").value;
+            let status = document.getElementsByName("status");
+            for(let i =0;i<status.length;i++){
+                if(status[i].checked){
+                    status = status[i].value;
+                }
+            }
+            if(status === "watched" || !title && !genre && !rating ){
+                alert("Please fill out the form");
+                return;
+            }
+            let element = {
+                title: title,
+                genre: genre,
+                status: status,
+                rating: rating
+            }
+            niza.push(element);
+            if(element.status === "watched"){
+                let cardWatched = `<div class="watched"><p>${title}</p><p>${genre}</p><p>${rating}</p></div>`
+                document.getElementById("movies").innerHTML += cardWatched;
+            }
+            else{
+                let cardToWatched = `<div class="toWatched"><p>${title}</p><p>${genre}</p><button onclick="removeThis(this)">Remove</button></div>`
+                document.getElementById("movies").innerHTML += cardToWatched;
+            }
+            console.log(status);
+        }
+    </script>
+
+    </body>
+    </html>
