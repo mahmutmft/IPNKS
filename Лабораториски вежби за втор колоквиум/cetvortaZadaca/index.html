@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #forma{
+            width: 450px;
+            height: 300px;
+            margin: auto;
+            text-align: center;
+            border: 1px solid black
+        }
+        #filter{
+            display: flex;
+            justify-content: center;
+        }
+        #byAuthor, #byCategory{
+            margin: 20px 30px;
+            text-align: center;
+        }
+        #tabela{
+            width: 700px;
+            margin: auto;
+            text-align: center;
+        }
+        table, tr, td{
+            border : 1px solid black;
+            border-collapse: collapse;
+        }
+        td{
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+<div id="forma">
+    <h1>Author and Book Information</h1>
+    <label for="name">Author Name:</label><br><input type="text" id="name"><br><br>
+    <label for="book">Book Title:</label><br><input type="text" id="book"><br><br>
+    <label for="category">Book Category:</label><br><br>
+    <select name="category" id="category">
+        <option value="Fiction">Fiction</option>
+        <option value="Non-Fiction">Non-Fiction</option>
+        <option value="Mystery">Mystery</option>
+        <option value="Fantasy">Fantasy</option>
+        <option value="ScienceFiction">Science Fiction</option>
+        <option value="Biography">Biography</option>
+    </select><br><br>
+    <button onclick="addRow()">Submit</button>
+</div>
+<div id="filter">
+    <div id="byAuthor">
+        <label for="authorFilter">Filter By Author</label><br>
+        <input type="text" id="authorFilter" onchange="filterByAuthor()">
+    </div>
+    <div id="byCategory">
+        <label for="categoryFilter">Filter By Category</label><br>
+        <select name="category" id="categoryFilter" onchange="filterByCategory()">
+            <option value="all">All Categorys</option>
+            <option value="Fiction">Fiction</option>
+            <option value="Non-Fiction">Non-Fiction</option>
+            <option value="Mystery">Mystery</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="ScienceFiction">Science Fiction</option>
+            <option value="Biography">Biography</option>
+        </select><br><br>
+    </div>
+</div>
+<div id="tabela">
+    <table>
+        <thead>
+        <tr>
+            <td>Authors</td>
+            <td>Book Title</td>
+            <td>Book Category</td>
+            <td>Action</td>
+        </tr>
+        </thead>
+        <tbody id="dataHere">
+
+        </tbody>
+    </table>
+    <script>
+        let array = [];
+        function addRow(){
+            let name = document.getElementById("name").value;
+            let title = document.getElementById("book").value;
+            let category = document.getElementById("category").value;
+            let dataHere = {
+                name: name,
+                title: title,
+                category: category
+            }
+            array.push(dataHere);
+            let data = `<tr><td>${name}</td><td>${title}</td><td>${category}</td></tr>`;
+            document.getElementById("dataHere").innerHTML += data;
+        }
+
+        function filterByAuthor(){
+            let filterName = document.getElementById("authorFilter").value.toLowerCase();
+            let rows = document.getElementById("dataHere").getElementsByTagName("tr");
+            for(let i = 0; i < rows.length; i++){
+                let authorCell = rows[i].cells[0].innerText.toLowerCase();
+                if(authorCell.includes(filterName)){
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+        function filterByCategory(){
+            let filterCategory = document.getElementById("categoryFilter").value;
+            let rows = document.getElementById("dataHere").getElementsByTagName("tr");
+            for(let i = 0; i < rows.length; i++){
+                let categoryCell = rows[i].cells[2].innerText;
+                if(filterCategory === "all" || categoryCell === filterCategory){
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</div>
+</body>
+</html>
