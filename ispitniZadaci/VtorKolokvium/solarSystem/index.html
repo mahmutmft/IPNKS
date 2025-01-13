@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <title>Document</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        #makeCircles {
+            display: flex;
+            flex-direction: row;
+            height: 200px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #charts {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .divCircle {
+            display: flex;
+            position: absolute;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            left: -150px;
+        }
+
+        #stats {
+            display: none;
+            flex-direction: column;
+        }
+
+        #stats span {
+            margin-top: 15px;
+        }
+        #button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .animeClass{
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<h1>Solar System</h1>
+<div id="makeCircles">
+</div>
+<div id="charts">
+    <div id="chart1"></div>
+    <div id="chart2"></div>
+</div>
+<div id="stats">
+    <span class="animeClass"><span id="name"></span>Stats</span>
+    <span class="animeClass">Mean Radius: <span></span></span>
+    <span class="animeClass">Gravity: <span></span></span>
+    <span class="animeClass">Mass: <span></span></span>
+    <span class="animeClass">Volume: <span></span></span>
+    <span class="animeClass">Escape Velocity: <span></span></span>
+</div>
+<div id="button">
+    <button id="buttonCenter" onclick="showPlanets()">Show Planets</button>
+</div>
+<script>
+    let arrayData = [];
+    let planet = [];
+    let planetsAllData = ["yellow", "orange", "lightblue", "red", "orangered", "yellowgreen", "cornflowerblue", "purple"];
+
+    async function fetchData() {
+        let response = await fetch("https://api.le-systeme-solaire.net/rest/bodies");
+        arrayData = await response.json();
+        console.log(arrayData);
+        isPlanet();
+        charts();
+    }
+
+    function isPlanet() {
+        for (let i = 0; i < arrayData.bodies.length; i++) {
+            if (arrayData.bodies[i].isPlanet == true) {
+                let moonCount = 0;
+                if (arrayData.bodies[i].moons) {
+                    moonCount = arrayData.bodies[i].moons.length;
+                }
+                let element = {
+                    name: arrayData.bodies[i].englishName,
+                    mass: arrayData.bodies[i].meanRadius,
+                    moons: moonCount,
+                    volume: arrayData.bodies[i].vol.volValue,
+                    gravity: arrayData.bodies[i].gravity,
+                    escape: arrayData.bodies[i].escape,
+                    meanradius: arrayData.bodies[i].mass.massValue,
+                    date: arrayData.bodies[i].discoveryDate,
+                    byname: arrayData.bodies[i].discoveredBy
+                }
+                planet.push(element);
+            }
+        }
+        sortPlanets();
+    }
+
+    function sortPlanets() {
+        let krugPogole = 100;
+        planet.sort((a, b) => a.mass - b.mass);
+        for (let i = 0; i < planet.length; i++) {
+            krugPogole = parseInt(krugPogole);
+            let divCreate = document.createElement('span');
+            divCreate.classList.add('divCircle');
+            divCreate.innerText = planet[i].name;
+            divCreate.style.width = krugPogole + "px";
+            divCreate.style.height = krugPogole + "px";
+            krugPogole += 10;
+            let color = planetsAllData[i];
+            divCreate.style.background = color;
+            divCreate.onclick = function () {
+                stats(planet[i]);
+            }
+            let randomX = Math.random() * (window.innerWidth - 150);
+            divCreate.style.left = `-${120}px`;
+            document.getElementById("makeCircles").append(divCreate);
+        }
+        animateCircles();
+    }
+    function showPlanets(){
+        document.getElementById("makeCircles").style.display = "inline-block";
+    }
+    function stats(obj) {
+        let statsPlanet = document.getElementById("stats");
+        statsPlanet.style.display = "flex";
+        statsPlanet.style.justifyContent = "center";
+        statsPlanet.style.alignItems = "center";
+        statsPlanet.style.textAlign = "left";
+        statsPlanet.style.width = "40%";
+        statsPlanet.style.flexDirection = "column"
+        statsPlanet.children[0].innerText = `${obj.name}'s stats`;
+        statsPlanet.children[1].innerText = `Mean Radius: ${obj.mass}`;
+        statsPlanet.children[2].innerText = `Gravity: ${obj.gravity}`;
+        statsPlanet.children[3].innerText = `Mass: ${obj.meanradius}`;
+        statsPlanet.children[4].innerText = `Volume: ${obj.volume}`;
+        statsPlanet.children[5].innerText = `Escape Velocity: ${obj.escape}`;
+        document.getElementById("makeCircles").style.display = "none";
+    }
+
+    function animateCircles() {
+        let brojac = 0;
+        anime({
+            targets: '.divCircle',
+            translateX: function (el, index) {
+                brojac++;
+                return (brojac + 1) * 150;
+            },
+            duration: 500,
+            easing: 'easeInOutQuad',
+            loop: false,
+        });
+        for (let i = 0; i < planet.length; i++) {
+            let left = document.getElementsByClassName("divCircle");
+            left[i].style.left = '-100'
+        }
+        for(let i=0;i<6;i++){
+            let left = document.getElementsByClassName("animeClass");
+            left[i].style.left = '-100';
+        }
+        anime({
+            targets: '.animeClass',
+            translateX : 100,
+            duration: 500,
+            loop: false,
+            easings: 'easeInOutQuad'
+        })
+    }
+    function charts() {
+        let nameFilter = planet.map(c => c.name);
+        let moonFilter = planet.map(c => c.moons);
+        let gravityFilter = planet.map(c => c.gravity);
+        var data = [
+            {
+                x: nameFilter,
+                y: moonFilter,
+                type: 'bar'
+            }
+        ];
+
+        Plotly.newPlot('chart1', data);
+
+        var trace1 = {
+            x: nameFilter,
+            y: gravityFilter,
+            type: 'scatter'
+        };
+
+        var data = [trace1];
+
+        Plotly.newPlot('chart2', data);
+
+    }
+
+    fetchData();
+</script>
+</body>
+</html>
