@@ -1,19 +1,17 @@
-# IPNKS: Exam Assignments for Faculty
+# Client-Side Internet Programming (F23L2W109)
 
-## Project Overview
+## Overview
+This repository contains assignments for the "Client-Side Internet Programming" course at the Faculty of Computer Science and Engineering. It covers the basics of client-side web development using JavaScript, focusing on topics such as DOM manipulation, functions, arrays, objects, and more.
 
-This repository contains exam assignments completed as part of the **Internet Programming - Client-Side** course at FINKI. It showcases practical implementations of client-side programming concepts, focusing on web development fundamentals.
+## Course Topics
+- Introduction to Internet and Client-Server Architecture 🌐
+- JavaScript Fundamentals (Variables, Operators, Functions) 💻
+- Arrays, Objects, and DOM Manipulation 📊
+- JSON for Data Exchange 📦
 
-## Contents
+## Tools Used
+- JetBrains IDEs for programming development 🛠️
+- JavaScript for client-side scripting ✨
 
-- **Assignments**: Solutions to exam tasks covering various client-side programming topics.
-- **Code Examples**: Demonstrations of HTML, CSS, and JavaScript functionalities.
-- **Practical Applications**: Real-world scenarios implemented as part of the assignments.
-
-## Installation
-
-To view or run the assignments locally:
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/mahmutmft/IPNKS.git
+## How to Contribute 🤝
+Feel free to fork the repository, explore the code, and suggest improvements or additional exercises.
