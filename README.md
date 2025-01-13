@@ -1,5 +1,5 @@
 # Client-Side Internet Programming (F23L2W109)
-
+bla
 ## Overview
 This repository contains assignments for the "Client-Side Internet Programming" course at the Faculty of Computer Science and Engineering. It covers the basics of client-side web development using JavaScript, focusing on topics such as DOM manipulation, functions, arrays, objects, and more.
 
