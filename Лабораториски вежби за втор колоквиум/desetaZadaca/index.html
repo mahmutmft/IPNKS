@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <style>
+        .rectangle {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<button onclick="prvaTocka()">Generate First Line</button>
+<button onclick="vtoraTocka()">Generate Second Line</button>
+<div id="container">
+
+</div>
+<script>
+    let colors = ['yellow', 'green', 'red', 'blue', 'grey', 'black', 'pink'];
+    let visina, y, shirina, x, boja;
+
+    function prvaTocka() {
+        Math.floor(Math.random() * colors.length);
+        shirina = Math.floor(Math.random() * 500);
+        x = Math.floor(Math.random() * window.innerHeight) + "px";
+    }
+
+    function vtoraTocka() {
+        boja = Math.floor(Math.random() * colors.length)
+        visina = Math.floor(Math.random() * 500);
+        y = Math.floor(Math.random() * window.innerWidth) + 'px';
+        let createRectangle = `<div id="animaija" class="rectangle" style="width: ${shirina}px; height: ${visina}px; top: ${x}; left: ${y}; background: ${colors[boja]}"></div>`
+        document.getElementById("container").innerHTML += createRectangle;
+        anime({
+            targets: '#animaija',
+            duration: 500,
+            opacity: '100%',
+            easing: 'easeInOutQuad'
+        })
+    }
+</script>
+</body>
+</html>
