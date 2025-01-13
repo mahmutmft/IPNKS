@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+<h1>Budget Tracker</h1>
+<label for="category">Category:</label><input type="text" id="category"><br><br>
+<label for="amount">Amount:</label><input type="text" id="amount"><br><br>
+<button onclick="addExpenses()">Add Expenses</button>
+<button onclick="showPie()">Show Pie Chart</button>
+<ul id="addData">
+
+</ul>
+<div id="chart">
+
+</div>
+<script>
+    let array = [];
+
+    function addExpenses() {
+        let category = document.getElementById("category").value;
+        let amount = document.getElementById("amount").value;
+        amount = parseInt(amount);
+        let cat = document.getElementById(category);
+        let found = false;
+        for (let i = 0; i < array.length; i++) {
+            if (category === array[i].category) {
+                array[i].amount += parseInt(amount);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            let element = {
+                category: category,
+                amount: amount,
+            }
+            array.push(element);
+        }
+        displayData();
+    }
+    function displayData() {
+        let listHtml = "";
+        for (let i = 0; i < array.length; i++) {
+            listHtml += `<li>${array[i].category} <span id="${array[i].category}">-${array[i].amount}</span></li>`;
+        }
+        document.getElementById("addData").innerHTML = listHtml;
+    }
+
+    function showPie() {
+        let name = array.map(c => c.category);
+        let amoutn = array.map(c => c.amount);
+        var data = [{
+            values: amoutn,
+            labels: name,
+            type: 'pie'
+        }];
+        var layout = {
+            height: 400,
+            width: 500,
+            title: 'Expense Distribution'
+        };
+
+        Plotly.newPlot('chart', data, layout);
+    }
+
+    function updateAmount() {
+        let category = document.getElementById("category").value;
+        let amoutn = document.getElementById("amout").value;
+        for (let i = 0; i < array.length; i++) {
+            if (category === array[i]) {
+                cout
+            }
+        }
+
+    }
+</script>
+</body>
+</html>
